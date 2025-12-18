@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Make the app fill the screen like a desktop tool */
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  background-color: #f3f4f6; /* Light gray enterprise background */
+}
