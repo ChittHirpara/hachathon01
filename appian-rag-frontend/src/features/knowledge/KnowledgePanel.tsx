@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { Sparkles, FileText, ExternalLink, Loader2, Calendar, Tag, MapPin } from 'lucide-react'; // Added icons
+import { Sparkles, FileText, ExternalLink, Loader2, Calendar, Tag, MapPin, Zap } from 'lucide-react';
 import { useKnowledge } from '../../context/KnowledgeContext';
 import { PdfModal } from '../../components/PdfModal';
 import type { Citation } from '../../types';
-import { useFormContext } from 'react-hook-form'; // To get context data
 
 export const KnowledgePanel = () => {
-  const { suggestions, isLoading } = useKnowledge();
+  // 1. Get triggerAction from context
+  const { suggestions, isLoading, triggerAction } = useKnowledge();
   const [selectedCitation, setSelectedCitation] = useState<Citation | null>(null);
 
-  // 🆕 FEATURE A: Context Awareness (Get the actual form data to display)
-  // Note: This assumes CaseForm uses FormProvider, OR we can pass props.
-  // For now, let's just use the "Analyzing..." text to show context is simpler.
-  
   return (
     <>
       <div className="h-full flex flex-col bg-slate-50 border-l border-slate-200">
@@ -31,8 +27,7 @@ export const KnowledgePanel = () => {
           )}
         </div>
 
-        {/* 🆕 FEATURE A: Visible Context Summary */}
-        {/* Show this bar only when we have results */}
+        {/* Context Bar */}
         {!isLoading && suggestions.length > 0 && (
           <div className="bg-indigo-50 px-4 py-2 border-b border-indigo-100 flex items-center gap-3 text-xs text-indigo-800">
             <span className="font-bold uppercase tracking-wide">Active Context:</span>
@@ -41,6 +36,7 @@ export const KnowledgePanel = () => {
           </div>
         )}
 
+        {/* Content */}
         <div className="flex-1 p-4 overflow-y-auto space-y-4">
           
           {isLoading && (
@@ -60,20 +56,17 @@ export const KnowledgePanel = () => {
           {!isLoading && suggestions.map((item) => (
             <div key={item.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
               
-              {/* 🆕 FEATURE C: Metadata Header */}
+              {/* Metadata Header */}
               <div className="flex justify-between items-start mb-2">
                 <div className="flex gap-2 mb-1">
-                   {/* Document Type Badge */}
                    <span className="text-[10px] uppercase font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
                      {item.documentType}
                    </span>
-                   {/* Date Badge (Feature E) */}
                    <span className="flex items-center text-[10px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
                      <Calendar className="w-3 h-3 mr-1"/> {item.effectiveDate}
                    </span>
                 </div>
                 
-                {/* Text-Based Relevance (Feature C) */}
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
                   item.relevanceLevel === 'High' 
                     ? 'bg-green-100 text-green-700' 
@@ -91,6 +84,7 @@ export const KnowledgePanel = () => {
                 {item.summary}
               </p>
 
+              {/* Citations */}
               <div className="space-y-2">
                 {item.citations.map((cite, index) => (
                   <button 
@@ -112,10 +106,17 @@ export const KnowledgePanel = () => {
                 ))}
               </div>
 
+              {/* 🚀 ACTION BUTTONS (The One-Click Feature) */}
               {item.actions && (
                 <div className="mt-3 pt-3 border-t border-slate-100 flex gap-2">
                   {item.actions.map(action => (
-                     <button key={action} className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
+                     <button 
+                       key={action} 
+                       // 🆕 When clicked, send data to the Form
+                       onClick={() => triggerAction(`[AI Suggestion applied] Based on ${item.title}: ${item.summary}`)}
+                       className="text-xs px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition flex items-center shadow-sm"
+                     >
+                       <Zap className="w-3 h-3 mr-1 fill-white" />
                        {action}
                      </button>
                   ))}
@@ -124,7 +125,9 @@ export const KnowledgePanel = () => {
             </div>
           ))}
         </div>
+        
       </div>
+      
 
       <PdfModal 
         isOpen={!!selectedCitation} 

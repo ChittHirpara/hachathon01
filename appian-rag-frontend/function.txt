@@ -1,0 +1,132 @@
+A. Case Context & Awareness Features
+
+Automatic Case Context Ingestion
+The panel receives structured case data (claim type, jurisdiction, category, date) directly from the active Appian case.
+
+Visible Context Summary
+The UI clearly shows which case attributes are being used to match policies, preventing silent misinterpretation.
+
+Read-Only Context Display
+Case data is displayed but never editable, ensuring safety and preventing accidental changes.
+
+🔹 B. Just-in-Time Knowledge Delivery Features
+
+Persistent Knowledge Side Panel
+A fixed right-side panel that remains visible throughout case handling without interrupting workflow.
+
+Proactive Policy Surfacing
+Relevant policies are displayed automatically without requiring manual search.
+
+Context-Matched Retrieval
+Policies are selected based on semantic relevance to the active case, not simple keyword matching.
+
+Relevance-Ranked Results
+Guidance items are ordered by relevance to reduce cognitive load.
+
+🔹 C. Policy Guidance Card Features
+
+Concise Neutral Policy Summaries
+Each card provides a short, factual summary suitable for regulated environments.
+
+Relevance Indicators (Text-Based)
+Human-readable relevance labels such as “Highly Relevant” instead of misleading percentages.
+
+Metadata Tagging
+Each card displays:
+
+Claim type
+
+Jurisdiction / state
+
+Document type (Policy, Regulation, SOP)
+
+Effective date
+
+Expandable Card Details
+Cards can expand to show more context without leaving the workflow.
+
+🔹 D. Verifiable Citation & Provenance Features (Critical)
+
+First-Class Source Citations
+Every guidance item includes a clear “View Source” action.
+
+Deep-Linked Document References
+Source links open the exact document, section, and paragraph used.
+
+Visual Highlighting of Source Text
+The referenced paragraph is highlighted to provide instant verification.
+
+AI vs Source Content Distinction
+AI-generated summaries are visually differentiated from original policy text.
+
+🔹 E. Document Freshness & Compliance Features
+
+Effective Date Display
+Shows when the policy or regulation became active.
+
+Last Updated Timestamp
+Indicates the most recent modification date.
+
+Document Version Indicators
+Helps agents verify they are using the latest approved guidance.
+
+🔹 F. Confidence & Safety Features
+
+Low-Confidence Warning State
+Clearly alerts the agent when guidance confidence is low.
+
+Manual Review Recommendation
+Suggests human review for ambiguous or edge cases.
+
+No-Match Disclosure State
+Explicitly states when no relevant policy could be found.
+
+Safe Failure Behavior
+The system never fabricates content or hides uncertainty.
+
+🔹 G. System States & Performance UX
+
+Non-Intrusive Loading States
+Skeleton loaders instead of spinners or blocking overlays.
+
+Graceful Error Handling
+Clear, calm error messages without technical jargon.
+
+No Focus Stealing
+The panel never interrupts typing or navigation in the main case view.
+
+🔹 H. Interaction & Usability Features
+
+Read-Only Interaction Model
+Agents can view, expand, and open sources—but not modify data.
+
+Keyboard Accessibility
+Fully navigable without a mouse.
+
+High-Contrast, Fatigue-Safe Design
+Typography and spacing optimized for long work sessions.
+
+🔹 I. Enterprise-Grade UI & Architecture Features
+
+Modular Component Architecture
+Clean separation of panel, cards, citations, and system states.
+
+Strong TypeScript Typing
+Strict interfaces for case context, policy data, and citations.
+
+Embeddable Design for Appian
+Built to integrate cleanly inside existing Appian workflows.
+
+Audit-Friendly UI Design
+Every decision-support element is traceable and reviewable.
+
+🔹 J. Optional Elite Features (If Time Allows)
+
+Trigger Explanation
+Shows which case attributes caused a policy to be surfaced.
+
+Policy Pinning
+Allows agents to keep key guidance visible while working.
+
+Similar Case Indicator
+Notes when a policy has been used in comparable past cases.
